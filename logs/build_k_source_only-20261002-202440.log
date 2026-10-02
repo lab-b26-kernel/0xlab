@@ -1,0 +1,103 @@
+
+[20:24:40] Source-only kernel restore
+
+[20:24:40] Repository: /workspaces/0xlab
+
+[20:24:40] Kernel: Linux 6.18.54
+
+[20:24:40] Host arch: x86_64
+
+[20:24:40] Jobs (informational): 4
+
+[20:24:40] Existing bzImage:
+-rw-rw-rw- 1 codespace codespace 36M Oct  2 18:03 /workspaces/0xlab/artifacts/kernel/linux-6.18.54/bzImage
+
+[20:24:40] Existing kernel config:
+-rw-rw-rw- 1 codespace codespace 145K Oct  2 18:03 /workspaces/0xlab/artifacts/kernel/linux-6.18.54/config
+
+[20:24:40] Saved artifact config SHA-256: 63496537414d4ec4f955147987f706a763275b77acc7a0ef0987226a257e3747
+
+[20:24:40] Using cached kernel tarball: /workspaces/0xlab/kernel-build/cache/linux-6.18.54.tar.xz
+
+[20:24:40] Using cached kernel.org checksum manifest
+
+[20:24:40] Kernel source SHA-256 verification: PASS
+
+[20:24:40] Kernel source already extracted: /workspaces/0xlab/kernel-build/src/linux-6.18.54
+
+[20:24:40] Kernel source version: 6.18.54
+
+[20:24:40] Restoring existing config into source/build workspace
+
+[20:24:40] Running olddefconfig (no kernel image build)
+make: Entering directory '/workspaces/0xlab/kernel-build/src/linux-6.18.54'
+make[1]: Entering directory '/workspaces/0xlab/kernel-build/build'
+  GEN     Makefile
+#
+# No change to .config
+#
+make[1]: Leaving directory '/workspaces/0xlab/kernel-build/build'
+make: Leaving directory '/workspaces/0xlab/kernel-build/src/linux-6.18.54'
+
+[20:24:42] Config after olddefconfig: unchanged
+
+[20:24:42] Running modules_prepare (no kernel image build)
+make: Entering directory '/workspaces/0xlab/kernel-build/src/linux-6.18.54'
+make[1]: Entering directory '/workspaces/0xlab/kernel-build/build'
+  SYNC    include/config/auto.conf.cmd
+  GEN     Makefile
+  GEN     Makefile
+  CALL    /workspaces/0xlab/kernel-build/src/linux-6.18.54/scripts/checksyscalls.sh
+  DESCEND objtool
+  INSTALL libsubcmd_headers
+make[1]: Leaving directory '/workspaces/0xlab/kernel-build/build'
+make: Leaving directory '/workspaces/0xlab/kernel-build/src/linux-6.18.54'
+
+[20:24:47] Module.symvers is NOT present.
+
+[20:24:47] This is expected after a source-only restore; this script does not rebuild the kernel.
+
+[20:24:47] When Kbase integration is built, we will determine whether the selected
+
+[20:24:47] Kbase/Kbuild configuration requires the prior kernel build metadata.
+
+[20:24:47] Source-only restore completed successfully
+
+============================================================
+build_k_source_only.sh COMPLETE
+============================================================
+
+Kernel source:
+  /workspaces/0xlab/kernel-build/src/linux-6.18.54
+
+Prepared build metadata:
+  /workspaces/0xlab/kernel-build/build
+
+Existing kernel image (reused, NOT rebuilt):
+  /workspaces/0xlab/artifacts/kernel/linux-6.18.54/bzImage
+
+Existing kernel config:
+  /workspaces/0xlab/artifacts/kernel/linux-6.18.54/config
+
+Source SHA-256:
+  9df30b02dd8102bbd0be52556288ef6889ddbe7f1ddb96fbf847d0becf3eacac
+
+Artifact config SHA-256:
+  63496537414d4ec4f955147987f706a763275b77acc7a0ef0987226a257e3747
+
+Prepared config SHA-256:
+  63496537414d4ec4f955147987f706a763275b77acc7a0ef0987226a257e3747
+
+Next Arm-specific phase:
+  1. Integrate the exact Kbase release into the Linux source tree.
+  2. Test the supplied Arm x86 Simulated Platform Device patches.
+  3. Configure the Arm No Mali / CSF / vexpress settings.
+  4. Build mali_kbase.ko.
+
+No bzImage was rebuilt by this script.
+No vmlinux was rebuilt by this script.
+No kernel modules were built by this script.
+
+Log:
+  /workspaces/0xlab/logs/build_k_source_only-20261002-202440.log
+============================================================
