@@ -1,0 +1,11 @@
+kernel_version=6.18.54
+kernel_line=6.18.y
+kernel_tarball=linux-6.18.54.tar.xz
+kernel_sha256=9df30b02dd8102bbd0be52556288ef6889ddbe7f1ddb96fbf847d0becf3eacac
+arch=x86
+subarch=x86_64
+jobs=8
+build_seconds=1525
+built_at=2026-10-02T17:43:50Z
+host_arch=x86_64
+host_kernel=Linux 6.8.0-1064-azure

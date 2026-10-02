@@ -1,0 +1,12 @@
+
+[17:16:45] Host arch: x86_64
+
+[17:16:45] Host kernel: Linux 6.8.0-1064-azure
+
+[17:16:45] CPU cores: 4
+
+[17:16:45] Build jobs: 4
+
+[17:16:45] Discovering latest 6.18.y release...
+
+[ERROR] Invalid kernel version: 6.18.54.tar.xz
