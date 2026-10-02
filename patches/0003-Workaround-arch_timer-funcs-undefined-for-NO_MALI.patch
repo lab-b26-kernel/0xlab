@@ -1,0 +1,46 @@
+From 1873fe9e270f5ddc56df545abb5beaab5d0bfdc4 Mon Sep 17 00:00:00 2001
+From: Arm PSIRT <psirt@arm.com>
+Date: Sun, 23 Feb 2025 23:48:28 +0000
+Subject: [PATCH 3/4] Workaround arch_timer funcs undefined for NO_MALI
+
+---
+ .../midgard/platform/devicetree/mali_kbase_clk_rate_trace.c | 2 ++
+ product/kernel/include/linux/mali_hw_access.h               | 6 ++++++
+ 2 files changed, 8 insertions(+)
+
+diff --git a/product/kernel/drivers/gpu/arm/midgard/platform/devicetree/mali_kbase_clk_rate_trace.c b/product/kernel/drivers/gpu/arm/midgard/platform/devicetree/mali_kbase_clk_rate_trace.c
+index 599d163..50bdd7d 100644
+--- a/product/kernel/drivers/gpu/arm/midgard/platform/devicetree/mali_kbase_clk_rate_trace.c
++++ b/product/kernel/drivers/gpu/arm/midgard/platform/devicetree/mali_kbase_clk_rate_trace.c
+@@ -55,8 +55,10 @@ static unsigned long get_gpu_clk_rate(struct kbase_device *kbdev, void *gpu_clk_
+ 	 * This is a reasonable workaround as the frequency value remains same
+ 	 * throughout. It can be removed after GPUCORE-25693.
+ 	 */
++#if IS_ENABLED(CONFIG_ARM) || IS_ENABLED(CONFIG_ARM64)
+ 	if (of_machine_is_compatible("arm,juno"))
+ 		return arch_timer_get_cntfrq();
++#endif /* IS_ENABLED(CONFIG_ARM) || IS_ENABLED(CONFIG_ARM64) */
+ 
+ 	return clk_get_rate((struct clk *)gpu_clk_handle);
+ }
+diff --git a/product/kernel/include/linux/mali_hw_access.h b/product/kernel/include/linux/mali_hw_access.h
+index 2e15c4a..46808fc 100644
+--- a/product/kernel/include/linux/mali_hw_access.h
++++ b/product/kernel/include/linux/mali_hw_access.h
+@@ -36,7 +36,13 @@
+ 
+ #define mali_iounmap(addr) iounmap(addr)
+ 
++
++#if IS_ENABLED(CONFIG_ARM) || IS_ENABLED(CONFIG_ARM64)
+ #define mali_arch_timer_get_cntfrq() arch_timer_get_cntfrq()
++#else
++/* Dummy value for non-Arm CPUs. Non-zero required for kbase_backend_time_init */
++#define mali_arch_timer_get_cntfrq() USEC_PER_SEC
++#endif /* IS_ENABLED(CONFIG_ARM) || IS_ENABLED(CONFIG_ARM64) */
+ 
+ 
+ #define mali_readq(addr) ((u64)mali_readl(addr) | ((u64)mali_readl(addr + 4) << 32))
+-- 
+2.25.1
+

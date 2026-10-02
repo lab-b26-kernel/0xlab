@@ -1,0 +1,53 @@
+From e15163b5005971549b7c25d5bdf371e0627f5817 Mon Sep 17 00:00:00 2001
+From: Arm PSIRT <psirt@arm.com>
+Date: Thu, 13 Mar 2025 00:28:46 +0000
+Subject: [PATCH 5/5] Fix unused function warnings
+
+---
+ .../drivers/gpu/arm/midgard/backend/gpu/mali_kbase_devfreq.c    | 2 ++
+ .../kernel/drivers/gpu/arm/midgard/device/mali_kbase_device.c   | 2 ++
+ 2 files changed, 4 insertions(+)
+
+diff --git a/product/kernel/drivers/gpu/arm/midgard/backend/gpu/mali_kbase_devfreq.c b/product/kernel/drivers/gpu/arm/midgard/backend/gpu/mali_kbase_devfreq.c
+index ef94962..210d5aa 100644
+--- a/product/kernel/drivers/gpu/arm/midgard/backend/gpu/mali_kbase_devfreq.c
++++ b/product/kernel/drivers/gpu/arm/midgard/backend/gpu/mali_kbase_devfreq.c
+@@ -347,6 +347,7 @@ static void kbase_devfreq_exit(struct device *dev)
+ 		kbase_devfreq_term_freq_table(kbdev);
+ }
+ 
++#ifdef CONFIG_OF
+ static void kbasep_devfreq_read_suspend_clock(struct kbase_device *kbdev, struct device_node *node)
+ {
+ 	u64 freq = 0;
+@@ -378,6 +379,7 @@ static void kbasep_devfreq_read_suspend_clock(struct kbase_device *kbdev, struct
+ 	kbdev->pm.backend.gpu_clock_suspend_freq = freq;
+ 	dev_info(kbdev->dev, "suspend clock %llu by opp-mali-errata-1485982", freq);
+ }
++#endif /* CONFIG_OF */
+ 
+ static int kbase_devfreq_init_core_mask_table(struct kbase_device *kbdev)
+ {
+diff --git a/product/kernel/drivers/gpu/arm/midgard/device/mali_kbase_device.c b/product/kernel/drivers/gpu/arm/midgard/device/mali_kbase_device.c
+index 5c12b38..b0c19f0 100644
+--- a/product/kernel/drivers/gpu/arm/midgard/device/mali_kbase_device.c
++++ b/product/kernel/drivers/gpu/arm/midgard/device/mali_kbase_device.c
+@@ -127,6 +127,7 @@ static void kbase_device_all_as_term(struct kbase_device *kbdev)
+ 		kbase_mmu_as_term(kbdev, i);
+ }
+ 
++#if IS_ENABLED(CONFIG_OF)
+ static int pcm_prioritized_process_cb(struct notifier_block *nb, unsigned long action, void *data)
+ {
+ 	struct kbase_device *const kbdev =
+@@ -149,6 +150,7 @@ static int pcm_prioritized_process_cb(struct notifier_block *nb, unsigned long a
+ 
+ 	return 0;
+ }
++#endif /* IS_ENABLED(CONFIG_OF) */
+ 
+ int kbase_device_pcm_dev_init(struct kbase_device *const kbdev)
+ {
+-- 
+2.25.1
+

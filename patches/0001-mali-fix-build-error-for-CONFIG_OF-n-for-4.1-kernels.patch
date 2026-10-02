@@ -1,0 +1,25 @@
+From b77afa6462bef96544a452363c0717c01943f89c Mon Sep 17 00:00:00 2001
+From: Arm PSIRT <psirt@arm.com>
+Date: Sun, 23 Feb 2025 23:11:27 +0000
+Subject: [PATCH 1/4] mali: fix build error for CONFIG_OF=n for 4.1+ kernels
+
+---
+ product/kernel/include/linux/version_compat_defs.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/product/kernel/include/linux/version_compat_defs.h b/product/kernel/include/linux/version_compat_defs.h
+index d2bbc53..baff8b1 100644
+--- a/product/kernel/include/linux/version_compat_defs.h
++++ b/product/kernel/include/linux/version_compat_defs.h
+@@ -563,7 +563,7 @@ static inline int of_changeset_add_prop_u32(struct of_changeset *ocs, struct dev
+ }
+ #endif
+ 
+-#if KERNEL_VERSION(4, 15, 0) <= LINUX_VERSION_CODE
++#if KERNEL_VERSION(4, 1, 0) > LINUX_VERSION_CODE
+ #ifndef CONFIG_SPARC
+ static inline int of_property_check_flag(const struct property *p, unsigned long flag)
+ {
+-- 
+2.25.1
+

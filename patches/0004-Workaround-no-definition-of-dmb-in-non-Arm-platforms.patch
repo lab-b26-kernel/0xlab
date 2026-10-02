@@ -1,0 +1,25 @@
+From 0b1b1f93a6a73c31a0a2bbcf739efe6cdb950837 Mon Sep 17 00:00:00 2001
+From: Arm PSIRT <psirt@arm.com>
+Date: Sun, 23 Feb 2025 23:58:18 +0000
+Subject: [PATCH 4/4] Workaround no definition of dmb() in non-Arm platforms
+
+---
+ product/kernel/include/linux/version_compat_defs.h | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/product/kernel/include/linux/version_compat_defs.h b/product/kernel/include/linux/version_compat_defs.h
+index baff8b1..3f90149 100644
+--- a/product/kernel/include/linux/version_compat_defs.h
++++ b/product/kernel/include/linux/version_compat_defs.h
+@@ -761,4 +761,8 @@ static inline int of_changeset_add_prop_string_array(struct of_changeset *ocs,
+ #define DEVFREQ_GOV_PASSIVE "passive"
+ #endif
+ 
++#ifndef dmb
++#define dmb(opt) mb()
++#endif 
++
+ #endif /* _VERSION_COMPAT_DEFS_H_ */
+-- 
+2.25.1
+

@@ -1,0 +1,28 @@
+From 22e893ff4af86f481ac98742ac19cd06d022e19a Mon Sep 17 00:00:00 2001
+From: Arm PSIRT <psirt@arm.com>
+Date: Thu, 13 Mar 2025 00:56:39 +0000
+Subject: [PATCH 6/6] Fix 'make clean' when no arbitration code present
+
+---
+ product/kernel/drivers/gpu/arm/midgard/Kbuild | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/product/kernel/drivers/gpu/arm/midgard/Kbuild b/product/kernel/drivers/gpu/arm/midgard/Kbuild
+index 5c5b8df..38c0874 100644
+--- a/product/kernel/drivers/gpu/arm/midgard/Kbuild
++++ b/product/kernel/drivers/gpu/arm/midgard/Kbuild
+@@ -130,7 +130,11 @@ subdir-ccflags-y += $(ccflags-y)
+ # Kernel Modules
+ #
+ obj-$(CONFIG_MALI_MIDGARD) += mali_kbase.o
++
++ifneq ($(CONFIG_MALI_HAS_VIRTUALIZATION),)
+ obj-$(CONFIG_MALI_HAS_VIRTUALIZATION) += ../arbitration/
++endif
++
+ obj-$(CONFIG_MALI_KUTF)    += tests/
+ 
+ mali_kbase-y := \
+-- 
+2.25.1
+

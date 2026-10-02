@@ -1,0 +1,101 @@
+From e2aafd9ef0e621bd4b26c6e2c5fe20bf4e07d900 Mon Sep 17 00:00:00 2001
+From: Arm PSIRT <psirt@arm.com>
+Date: Sun, 23 Feb 2025 23:33:32 +0000
+Subject: [PATCH 2/4] Fix x86 build error for missing asm/arch_timer.h
+
+---
+ .../gpu/arm/midgard/backend/gpu/mali_kbase_model_dummy.c        | 2 ++
+ .../drivers/gpu/arm/midgard/backend/gpu/mali_kbase_time.c       | 2 ++
+ .../drivers/gpu/arm/midgard/csf/mali_kbase_csf_firmware.c       | 2 ++
+ .../gpu/arm/midgard/csf/mali_kbase_csf_firmware_no_mali.c       | 2 ++
+ .../arm/midgard/platform/devicetree/mali_kbase_clk_rate_trace.c | 2 ++
+ product/kernel/include/linux/mali_hw_access.h                   | 2 ++
+ 6 files changed, 12 insertions(+)
+
+diff --git a/product/kernel/drivers/gpu/arm/midgard/backend/gpu/mali_kbase_model_dummy.c b/product/kernel/drivers/gpu/arm/midgard/backend/gpu/mali_kbase_model_dummy.c
+index 48a0746..b3843d7 100644
+--- a/product/kernel/drivers/gpu/arm/midgard/backend/gpu/mali_kbase_model_dummy.c
++++ b/product/kernel/drivers/gpu/arm/midgard/backend/gpu/mali_kbase_model_dummy.c
+@@ -34,7 +34,9 @@
+ #include <backend/gpu/mali_kbase_model_linux.h>
+ #include <mali_kbase_mem_linux.h>
+ 
++#if IS_ENABLED(CONFIG_ARM) || IS_ENABLED(CONFIG_ARM64)
+ #include <asm/arch_timer.h>
++#endif /* IS_ENABLED(CONFIG_ARM) || IS_ENABLED(CONFIG_ARM64) */
+ 
+ #include <csf/mali_kbase_csf_firmware.h>
+ 
+diff --git a/product/kernel/drivers/gpu/arm/midgard/backend/gpu/mali_kbase_time.c b/product/kernel/drivers/gpu/arm/midgard/backend/gpu/mali_kbase_time.c
+index 602f7e5..572f01f 100644
+--- a/product/kernel/drivers/gpu/arm/midgard/backend/gpu/mali_kbase_time.c
++++ b/product/kernel/drivers/gpu/arm/midgard/backend/gpu/mali_kbase_time.c
+@@ -28,7 +28,9 @@
+ #include <mali_kbase_config_defaults.h>
+ #include <mali_kbase_io.h>
+ #include <linux/version_compat_defs.h>
++#if IS_ENABLED(CONFIG_ARM) || IS_ENABLED(CONFIG_ARM64)
+ #include <asm/arch_timer.h>
++#endif /* IS_ENABLED(CONFIG_ARM) || IS_ENABLED(CONFIG_ARM64) */
+ #include <linux/mali_hw_access.h>
+ 
+ struct kbase_timeout_info {
+diff --git a/product/kernel/drivers/gpu/arm/midgard/csf/mali_kbase_csf_firmware.c b/product/kernel/drivers/gpu/arm/midgard/csf/mali_kbase_csf_firmware.c
+index 624c113..d1ee4d6 100644
+--- a/product/kernel/drivers/gpu/arm/midgard/csf/mali_kbase_csf_firmware.c
++++ b/product/kernel/drivers/gpu/arm/midgard/csf/mali_kbase_csf_firmware.c
+@@ -52,7 +52,9 @@
+ #include <linux/set_memory.h>
+ #endif
+ #include <mmu/mali_kbase_mmu.h>
++#if IS_ENABLED(CONFIG_ARM) || IS_ENABLED(CONFIG_ARM64)
+ #include <asm/arch_timer.h>
++#endif /* IS_ENABLED(CONFIG_ARM) || IS_ENABLED(CONFIG_ARM64) */
+ #include <linux/delay.h>
+ #include <linux/version_compat_defs.h>
+ #include <mali_kbase_config_defaults.h>
+diff --git a/product/kernel/drivers/gpu/arm/midgard/csf/mali_kbase_csf_firmware_no_mali.c b/product/kernel/drivers/gpu/arm/midgard/csf/mali_kbase_csf_firmware_no_mali.c
+index 428e782..3f83669 100644
+--- a/product/kernel/drivers/gpu/arm/midgard/csf/mali_kbase_csf_firmware_no_mali.c
++++ b/product/kernel/drivers/gpu/arm/midgard/csf/mali_kbase_csf_firmware_no_mali.c
+@@ -44,7 +44,9 @@
+ #if (KERNEL_VERSION(4, 13, 0) <= LINUX_VERSION_CODE)
+ #include <linux/set_memory.h>
+ #endif
++#if IS_ENABLED(CONFIG_ARM) || IS_ENABLED(CONFIG_ARM64)
+ #include <asm/arch_timer.h>
++#endif /* IS_ENABLED(CONFIG_ARM) || IS_ENABLED(CONFIG_ARM64) */
+ #include <mali_kbase_config_defaults.h>
+ 
+ #ifdef CONFIG_MALI_DEBUG
+diff --git a/product/kernel/drivers/gpu/arm/midgard/platform/devicetree/mali_kbase_clk_rate_trace.c b/product/kernel/drivers/gpu/arm/midgard/platform/devicetree/mali_kbase_clk_rate_trace.c
+index b3a9331..599d163 100644
+--- a/product/kernel/drivers/gpu/arm/midgard/platform/devicetree/mali_kbase_clk_rate_trace.c
++++ b/product/kernel/drivers/gpu/arm/midgard/platform/devicetree/mali_kbase_clk_rate_trace.c
+@@ -24,7 +24,9 @@
+ #include <linux/clk.h>
+ #include "mali_kbase_config_platform.h"
+ 
++#if IS_ENABLED(CONFIG_ARM) || IS_ENABLED(CONFIG_ARM64)
+ #include <asm/arch_timer.h>
++#endif /* IS_ENABLED(CONFIG_ARM) || IS_ENABLED(CONFIG_ARM64) */
+ 
+ static void *enumerate_gpu_clk(struct kbase_device *kbdev, unsigned int index)
+ {
+diff --git a/product/kernel/include/linux/mali_hw_access.h b/product/kernel/include/linux/mali_hw_access.h
+index 106393f..2e15c4a 100644
+--- a/product/kernel/include/linux/mali_hw_access.h
++++ b/product/kernel/include/linux/mali_hw_access.h
+@@ -22,7 +22,9 @@
+ #ifndef _MALI_HW_ACCESS_H_
+ #define _MALI_HW_ACCESS_H_
+ 
++#if IS_ENABLED(CONFIG_ARM) || IS_ENABLED(CONFIG_ARM64)
+ #include <asm/arch_timer.h>
++#endif /* IS_ENABLED(CONFIG_ARM) || IS_ENABLED(CONFIG_ARM64) */
+ #include <linux/io.h>
+ 
+ 
+-- 
+2.25.1
+
