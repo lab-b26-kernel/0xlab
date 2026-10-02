@@ -1,0 +1,164 @@
+
+[19:58:44] Source-only kernel restore
+
+[19:58:44] Repository: /workspaces/0xlab
+
+[19:58:44] Kernel: Linux 6.18.54
+
+[19:58:44] Host arch: x86_64
+
+[19:58:44] Jobs (informational): 4
+
+[19:58:44] Existing bzImage:
+-rw-rw-rw- 1 codespace codespace 36M Oct  2 18:03 /workspaces/0xlab/artifacts/kernel/linux-6.18.54/bzImage
+
+[19:58:44] Existing kernel config:
+-rw-rw-rw- 1 codespace codespace 145K Oct  2 18:03 /workspaces/0xlab/artifacts/kernel/linux-6.18.54/config
+
+[19:58:44] Saved artifact config SHA-256: 63496537414d4ec4f955147987f706a763275b77acc7a0ef0987226a257e3747
+
+[19:58:44] Downloading Linux 6.18.54 source
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0 84  147M   84  125M    0     0   126M      0  0:00:01 --:--:--  0:00:01  126M100  147M  100  147M    0     0   129M      0  0:00:01  0:00:01 --:--:--  129M
+
+[19:58:45] Downloading kernel.org SHA-256 manifest
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100  245k  100  245k    0     0  5136k      0 --:--:-- --:--:-- --:--:-- 5222k
+
+[19:58:45] Kernel source SHA-256 verification: PASS
+
+[19:58:45] Extracting linux-6.18.54.tar.xz
+
+[19:58:57] Kernel source version: 6.18.54
+
+[19:58:57] Restoring existing config into source/build workspace
+
+[19:58:58] Running olddefconfig (no kernel image build)
+make: Entering directory '/workspaces/0xlab/kernel-build/src/linux-6.18.54'
+make[1]: Entering directory '/workspaces/0xlab/kernel-build/build'
+  GEN     Makefile
+  HOSTCC  scripts/basic/fixdep
+  HOSTCC  scripts/kconfig/conf.o
+  HOSTCC  scripts/kconfig/confdata.o
+  HOSTCC  scripts/kconfig/expr.o
+  LEX     scripts/kconfig/lexer.lex.c
+  YACC    scripts/kconfig/parser.tab.[ch]
+  HOSTCC  scripts/kconfig/lexer.lex.o
+  HOSTCC  scripts/kconfig/menu.o
+  HOSTCC  scripts/kconfig/parser.tab.o
+  HOSTCC  scripts/kconfig/preprocess.o
+  HOSTCC  scripts/kconfig/symbol.o
+  HOSTCC  scripts/kconfig/util.o
+  HOSTLD  scripts/kconfig/conf
+#
+# No change to .config
+#
+make[1]: Leaving directory '/workspaces/0xlab/kernel-build/build'
+make: Leaving directory '/workspaces/0xlab/kernel-build/src/linux-6.18.54'
+
+[19:59:23] Config after olddefconfig: unchanged
+
+[19:59:23] Running modules_prepare (no kernel image build)
+make: Entering directory '/workspaces/0xlab/kernel-build/src/linux-6.18.54'
+make[1]: Entering directory '/workspaces/0xlab/kernel-build/build'
+  GEN     Makefile
+  SYSHDR  arch/x86/include/generated/uapi/asm/unistd_32.h
+  SYSHDR  arch/x86/include/generated/uapi/asm/unistd_64.h
+  SYSHDR  arch/x86/include/generated/uapi/asm/unistd_x32.h
+  SYSTBL  arch/x86/include/generated/asm/syscalls_32.h
+  SYSHDR  arch/x86/include/generated/asm/unistd_32_ia32.h
+  SYSHDR  arch/x86/include/generated/asm/unistd_64_x32.h
+  SYSTBL  arch/x86/include/generated/asm/syscalls_64.h
+  HOSTCC  arch/x86/tools/relocs_32.o
+  HOSTCC  arch/x86/tools/relocs_64.o
+  HOSTCC  arch/x86/tools/relocs_common.o
+  HOSTLD  arch/x86/tools/relocs
+  HOSTCC  scripts/genksyms/genksyms.o
+  YACC    scripts/genksyms/parse.tab.[ch]
+  HOSTCC  scripts/genksyms/parse.tab.o
+  LEX     scripts/genksyms/lex.lex.c
+  HOSTCC  scripts/genksyms/lex.lex.o
+  HOSTLD  scripts/genksyms/genksyms
+  HOSTCC  scripts/selinux/mdp/mdp
+  HOSTCC  scripts/kallsyms
+  HOSTCC  scripts/sorttable
+  HOSTCC  scripts/asn1_compiler
+  WRAP    arch/x86/include/generated/uapi/asm/bpf_perf_event.h
+  WRAP    arch/x86/include/generated/uapi/asm/errno.h
+  WRAP    arch/x86/include/generated/uapi/asm/fcntl.h
+  WRAP    arch/x86/include/generated/uapi/asm/ioctl.h
+  WRAP    arch/x86/include/generated/uapi/asm/ioctls.h
+  WRAP    arch/x86/include/generated/uapi/asm/ipcbuf.h
+  WRAP    arch/x86/include/generated/uapi/asm/param.h
+  WRAP    arch/x86/include/generated/uapi/asm/poll.h
+  WRAP    arch/x86/include/generated/uapi/asm/resource.h
+  WRAP    arch/x86/include/generated/uapi/asm/socket.h
+  WRAP    arch/x86/include/generated/uapi/asm/sockios.h
+  WRAP    arch/x86/include/generated/uapi/asm/termbits.h
+  WRAP    arch/x86/include/generated/uapi/asm/termios.h
+  WRAP    arch/x86/include/generated/uapi/asm/types.h
+  WRAP    arch/x86/include/generated/asm/early_ioremap.h
+  WRAP    arch/x86/include/generated/asm/fprobe.h
+  WRAP    arch/x86/include/generated/asm/mcs_spinlock.h
+  WRAP    arch/x86/include/generated/asm/mmzone.h
+  WRAP    arch/x86/include/generated/asm/ring_buffer.h
+  WRAP    arch/x86/include/generated/asm/irq_regs.h
+  WRAP    arch/x86/include/generated/asm/kmap_size.h
+  WRAP    arch/x86/include/generated/asm/local64.h
+  WRAP    arch/x86/include/generated/asm/mmiowb.h
+  WRAP    arch/x86/include/generated/asm/module.lds.h
+  WRAP    arch/x86/include/generated/asm/rwonce.h
+  UPD     arch/x86/include/generated/asm/cpufeaturemasks.h
+  GEN     arch/x86/include/generated/asm/orc_hash.h
+  UPD     include/config/kernel.release
+  UPD     include/generated/uapi/linux/version.h
+  UPD     include/generated/utsrelease.h
+  UPD     include/generated/compile.h
+  CC      scripts/mod/empty.o
+  HOSTCC  scripts/mod/mk_elfconfig
+  MKELF   scripts/mod/elfconfig.h
+  HOSTCC  scripts/mod/modpost.o
+  CC      scripts/mod/devicetable-offsets.s
+  UPD     scripts/mod/devicetable-offsets.h
+  HOSTCC  scripts/mod/file2alias.o
+  HOSTCC  scripts/mod/sumversion.o
+  HOSTCC  scripts/mod/symsearch.o
+  HOSTLD  scripts/mod/modpost
+  UPD     include/generated/timeconst.h
+  CC      kernel/bounds.s
+  UPD     include/generated/bounds.h
+  CC      arch/x86/kernel/asm-offsets.s
+  UPD     include/generated/asm-offsets.h
+  CC      kernel/sched/rq-offsets.s
+  UPD     include/generated/rq-offsets.h
+  CALL    /workspaces/0xlab/kernel-build/src/linux-6.18.54/scripts/checksyscalls.sh
+  CHKSHA1 /workspaces/0xlab/kernel-build/src/linux-6.18.54/include/linux/atomic/atomic-arch-fallback.h
+  CHKSHA1 /workspaces/0xlab/kernel-build/src/linux-6.18.54/include/linux/atomic/atomic-instrumented.h
+  CHKSHA1 /workspaces/0xlab/kernel-build/src/linux-6.18.54/include/linux/atomic/atomic-long.h
+  DESCEND objtool
+  CC      /workspaces/0xlab/kernel-build/build/tools/objtool/libsubcmd/exec-cmd.o
+  CC      /workspaces/0xlab/kernel-build/build/tools/objtool/libsubcmd/help.o
+  CC      /workspaces/0xlab/kernel-build/build/tools/objtool/libsubcmd/pager.o
+  CC      /workspaces/0xlab/kernel-build/build/tools/objtool/libsubcmd/parse-options.o
+  CC      /workspaces/0xlab/kernel-build/build/tools/objtool/libsubcmd/run-command.o
+  CC      /workspaces/0xlab/kernel-build/build/tools/objtool/libsubcmd/sigchain.o
+  CC      /workspaces/0xlab/kernel-build/build/tools/objtool/libsubcmd/subcmd-config.o
+  LD      /workspaces/0xlab/kernel-build/build/tools/objtool/libsubcmd/libsubcmd-in.o
+  AR      /workspaces/0xlab/kernel-build/build/tools/objtool/libsubcmd/libsubcmd.a
+  INSTALL /workspaces/0xlab/kernel-build/build/tools/objtool/libsubcmd/include/subcmd/exec-cmd.h
+  INSTALL /workspaces/0xlab/kernel-build/build/tools/objtool/libsubcmd/include/subcmd/help.h
+  INSTALL /workspaces/0xlab/kernel-build/build/tools/objtool/libsubcmd/include/subcmd/pager.h
+  INSTALL /workspaces/0xlab/kernel-build/build/tools/objtool/libsubcmd/include/subcmd/parse-options.h
+  INSTALL /workspaces/0xlab/kernel-build/build/tools/objtool/libsubcmd/include/subcmd/run-command.h
+  INSTALL libsubcmd_headers
+  MKDIR   /workspaces/0xlab/kernel-build/build/tools/objtool/arch/x86/
+  CC      /workspaces/0xlab/kernel-build/build/tools/objtool/arch/x86/special.o
+  MKDIR   /workspaces/0xlab/kernel-build/build/tools/objtool/arch/x86/lib/
+  GEN     /workspaces/0xlab/kernel-build/build/tools/objtool/arch/x86/lib/inat-tables.c
+  CC      /workspaces/0xlab/kernel-build/build/tools/objtool/arch/x86/decode.o
+  CC      /workspaces/0xlab/kernel-build/build/tools/objtool/arch/x86/orc.o
+  LD      /workspaces/0xlab/kernel-build/build/tools/objtool/arch/x86/objtool-in.o
+  CC      /workspaces/0xlab/kernel-build/build/tools/objtool/weak.o
+  CC      /workspaces/0xlab/kernel-build/build/tools/objtool/check.o
